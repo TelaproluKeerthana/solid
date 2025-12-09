@@ -2,22 +2,28 @@ package com.solidprinciples;
 
 import java.util.List;
 
-// Single Responsibility Principle - This class is responsible for delivering reports via email
-
-public class ReportDelivery {
-    private List<String> recipients;
-    public ReportDelivery(List<String> recipients) {
-        this.recipients = recipients;
-        
-    }
-
-    public void sendViaEmail(String content) {
-        System.out.println("-> [Delivery Layer] Sending report via email...");
-        System.out.println("   - Subject: Daily Financial Report");
-        System.out.println("   - Recipients: " + String.join(", ", this.recipients));
-        // In a real application, this would use a Mail API
+class EmailReportDelivery implements ReportSender {
+    
+    @Override
+    public void send(String reportTitle, String content, List<String> recipients) {
+        System.out.println("-> [Delivery Layer] Sending report via EMAIL...");
+        System.out.println("   - Subject: " + reportTitle);
+        System.out.println("   - Recipients: " + String.join(", ", recipients));
         System.out.println("   - Content (Excerpt): " + content.substring(0, Math.min(content.length(), 100)) + "...");
-        System.out.println("-> Report sent successfully.");
+        System.out.println("-> EMAIL Report sent successfully.");
+    }
+}
+
+class FtpReportDelivery implements ReportSender {
+
+    @Override
+    public void send(String reportTitle, String content, List<String> recipients) {
+        System.out.println("-> [Delivery Layer] Sending report via FTP...");
+        System.out.println("   - Report Title: " + reportTitle);
+        System.out.println("   - Recipients (FTP Users): " + String.join(", ", recipients));
+        System.out.println("   - Content (Excerpt): " + content.substring(0, Math.min(content.length(), 100)) + "...");
+        System.out.println("-> FTP Report sent successfully.");
     }
     
 }
+

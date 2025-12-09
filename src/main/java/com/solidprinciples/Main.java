@@ -3,22 +3,20 @@ package com.solidprinciples;
 import java.util.Arrays;
 import java.util.List;
 
+// made the code to follow all the 5 SOLID principles - Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion    
 public class Main {
     public static void main(String[] args) {
-        ReportGenerator rg = new ReportGenerator("financialReports", Arrays.asList("a", "b", "c"));
+        String reportName = "Q4 Financial Summary";
+        List<String> recipients = Arrays.asList("a@corp.com", "b@corp.com");
         
-        FinancialDataFetcher fd = new FinancialDataFetcher();
-        List<List<String>> data = fd.getFinancialData();
+         
+        DataFetcher concreteFetcher = new FinancialDataFetcher(); 
+        ReportFormatterInterface pdfFormat = new PDFReportFormatter(reportName);
+        ReportSender emailSender = new EmailReportDelivery(); 
 
-        ReportFormatterInterface rf = new HTMLReportFormatter(rg.getReportName());
-        String reportContent = rf.format(data);
+        ReportProcessor processor = new ReportProcessor(concreteFetcher, pdfFormat, emailSender);
         
-        ReportDelivery rd = new ReportDelivery(rg.getRecipients());
-        rd.sendViaEmail(reportContent);
-
-        rf = new PDFReportFormatter(rg.getReportName());
-        reportContent = rf.format(data);
-
-        rd.sendViaEmail(reportContent);
+        processor.generateAndDeliver(reportName, recipients);
+        
     }
 }
