@@ -1,15 +1,16 @@
 package com.solidprinciples;
 
-import java.util.List;
+// OCI PRINCIPLE - Interface Segregation Principle - Implementing PDF report formatting in its own class
 
-public class ReportFormatter {
+public class HTMLReportFormatter implements ReportFormatterInterface {
     private String reportName;
 
-    public ReportFormatter(String reportName) {
+    public HTMLReportFormatter(String reportName) {
         this.reportName = reportName;
     }
 
-    public String formatAsHtml(List<List<String>> data) {
+    @Override
+    public String format(java.util.List<java.util.List<String>> data) {
         System.out.println("-> [Formatting Layer] Generating HTML content...");
         StringBuilder html = new StringBuilder();
         html.append("<html><body>");
@@ -17,7 +18,7 @@ public class ReportFormatter {
         
         // Simple table generation
         html.append("<table border='1'>");
-        for (List<String> row : data) {
+        for (java.util.List<String> row : data) {
             html.append("<tr>");
             for (String cell : row) {
                 html.append("<td>").append(cell).append("</td>");

@@ -1,7 +1,7 @@
 package com.solidprinciples;
 
 import java.util.List;
-
+// Single Responsibility Principle - This class is responsible for generating report metadata
 public class ReportGenerator {
 
     private String reportName;

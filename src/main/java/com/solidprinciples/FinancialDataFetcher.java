@@ -2,6 +2,7 @@ package com.solidprinciples;
 
 import java.util.Arrays;
 import java.util.List;
+// Single Responsibility Principle - This class is responsible for fetching financial data
 
 public class FinancialDataFetcher {
      List<List<String>> getFinancialData() {

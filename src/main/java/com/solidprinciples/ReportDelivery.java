@@ -2,6 +2,8 @@ package com.solidprinciples;
 
 import java.util.List;
 
+// Single Responsibility Principle - This class is responsible for delivering reports via email
+
 public class ReportDelivery {
     private List<String> recipients;
     public ReportDelivery(List<String> recipients) {

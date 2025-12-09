@@ -10,10 +10,15 @@ public class Main {
         FinancialDataFetcher fd = new FinancialDataFetcher();
         List<List<String>> data = fd.getFinancialData();
 
-        ReportFormatter rf = new ReportFormatter(rg.getReportName());
-        String reportContent = rf.formatAsHtml(data);
-
+        ReportFormatterInterface rf = new HTMLReportFormatter(rg.getReportName());
+        String reportContent = rf.format(data);
+        
         ReportDelivery rd = new ReportDelivery(rg.getRecipients());
+        rd.sendViaEmail(reportContent);
+
+        rf = new PDFReportFormatter(rg.getReportName());
+        reportContent = rf.format(data);
+
         rd.sendViaEmail(reportContent);
     }
 }
